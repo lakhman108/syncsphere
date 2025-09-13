@@ -57,7 +57,7 @@ export const MessageFileModal = () => {
         url: apiUrl || "",
         query,
       });
-      
+
       await axios.post(url, {
         ...values,
         content: values.fileUrl,
@@ -73,13 +73,13 @@ export const MessageFileModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden">
+      <DialogContent className="bg-white dark:bg-[#313338] text-black dark:text-white p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Add an attachment
           </DialogTitle>
-          <DialogDescription className="text-center text-zinc-500">
-            Send a File as message
+          <DialogDescription className="text-center text-zinc-500 dark:text-zinc-400">
+            Send a file as message
           </DialogDescription>
         </DialogHeader>
 
@@ -103,8 +103,8 @@ export const MessageFileModal = () => {
                   )}
                 />
               </div>
-              <DialogFooter className="bg-gray-100 px-6 py-4">
-                <Button variant="primary" disabled={isLoading}>
+              <DialogFooter className="bg-gray-100 dark:bg-[#2b2d31] px-6 py-4">
+                <Button variant="primary" disabled={isLoading} className="bg-indigo-500 hover:bg-indigo-600 text-white dark:bg-indigo-600 dark:hover:bg-indigo-700">
                   Send
                 </Button>
               </DialogFooter>

@@ -61,7 +61,7 @@ export const InviteModal = () => {
 
         return (
                 <Dialog open={isModalOpen} onOpenChange={closeModal} >
-                        <DialogContent className="bg-white dark:text-neutral-400 p-0 overflow-hidden">
+                        <DialogContent className="bg-white dark:bg-[#313338] text-black dark:text-white p-0 overflow-hidden">
                                 <DialogHeader className="pt-8 px-6">
                                         <DialogTitle className="text-2xl text-center font-bold">
                                                 Invite Friends
@@ -69,10 +69,10 @@ export const InviteModal = () => {
 
                                 </DialogHeader>
                           <div className="p-6">
-                        <Label className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">Server Invite Link </Label>
+                        <Label className="uppercase text-xs font-bold text-zinc-500 dark:text-zinc-300">Server Invite Link </Label>
                         <div className="flex items-center mt-2 gap-x-2 ">
-                            <Input disabled={isloading} className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0" value={inviteUrl}/>
-                            <Button disabled={isloading} size="icon" onClick={onCopy}>
+                            <Input disabled={isloading} className="bg-zinc-300/50 dark:bg-[#1e1f22] border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0" value={inviteUrl}/>
+                            <Button disabled={isloading} size="icon" onClick={onCopy} className="bg-zinc-300/50 dark:bg-zinc-700 text-black dark:text-white hover:bg-zinc-400/50 dark:hover:bg-zinc-600">
                                 {
                                 copied ?
                                 <Check className="w-4 h-4"/>:
@@ -82,7 +82,7 @@ export const InviteModal = () => {
                         </div>
                         <Button
                         onClick={onNew}
-                        disabled={isloading} variant="link" size="sm" className="text-xs text-zinc-500 mt-4">Generate a new link
+                        disabled={isloading} variant="link" size="sm" className="text-xs text-zinc-500 dark:text-zinc-400 mt-4">Generate a new link
                             <RefreshCcw className="w-4 h-4 ml-2"/>
                         </Button>
                           </div>

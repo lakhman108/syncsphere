@@ -71,12 +71,12 @@ export const InitialModel = () => {
 
   return (
     <Dialog open={true}>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden">
+      <DialogContent className="bg-white dark:bg-[#313338] text-black dark:text-white p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Customize your server
           </DialogTitle>
-          <DialogDescription className="text-center text-zinc-500">
+          <DialogDescription className="text-center text-zinc-500 dark:text-zinc-400">
             Give your server a personality with a name and an image. You can always change it later.
           </DialogDescription>
         </DialogHeader>
@@ -108,13 +108,13 @@ export const InitialModel = () => {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
+                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-zinc-300">
                         Server name
                       </FormLabel>
                       <FormControl>
                         <Input
                           disabled={isLoading}
-                          className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+                          className="bg-zinc-300/50 dark:bg-[#1e1f22] border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0"
                           placeholder="Enter Server Name"
                           {...field}
                         />
@@ -125,12 +125,16 @@ export const InitialModel = () => {
                 />
               </div>
 
-              <DialogFooter className="bg-gray-100 px-6 py-4">
-                <Button variant="primary" disabled={isLoading}>
-                  Create
-                </Button>
-              </DialogFooter>
             </div>
+            <DialogFooter className="bg-gray-100 dark:bg-[#2b2d31] px-6 py-4">
+              <Button
+                variant="primary"
+                disabled={isLoading}
+                className="bg-indigo-500 hover:bg-indigo-600 text-white dark:bg-indigo-600 dark:hover:bg-indigo-700"
+              >
+                Create
+              </Button>
+            </DialogFooter>
           </form>
         </Form>
       </DialogContent>

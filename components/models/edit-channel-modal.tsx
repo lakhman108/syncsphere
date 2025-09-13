@@ -124,7 +124,7 @@ export const EditChannelModal = () => {
 
     return (
         <Dialog open={isModalOpen} onOpenChange={handleClose}>
-            <DialogContent className="bg-white text-black p-0 overflow-hidden">
+            <DialogContent className="bg-white dark:bg-[#313338] text-black dark:text-white p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-2xl text-center font-bold">
                         Edit Channel
@@ -139,7 +139,7 @@ export const EditChannelModal = () => {
                                 name="name"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel className="text-xs font-bold uppercase text-zinc-500 dark:text-secondary/70">
+                                        <FormLabel className="text-xs font-bold uppercase text-zinc-500 dark:text-zinc-300">
                                             Channel name
                                         </FormLabel>
                                         <FormControl>
@@ -147,7 +147,7 @@ export const EditChannelModal = () => {
                                                 {...field}
                                                 disabled={isLoading}
                                                 placeholder="Enter channel name"
-                                                className="border-0 bg-zinc-300/50 text-black focus-visible:ring-0 focus-visible:ring-offset-0"
+                                                className="border-0 bg-zinc-300/50 dark:bg-[#1e1f22] text-black dark:text-white focus-visible:ring-0 focus-visible:ring-offset-0"
                                             />
                                         </FormControl>
                                         <FormMessage />
@@ -162,7 +162,7 @@ export const EditChannelModal = () => {
                                     console.log("Current field value:", field.value);
                                     return (
                                         <FormItem>
-                                            <FormLabel className="text-xs font-bold uppercase text-zinc-500 dark:text-secondary/70">
+                                            <FormLabel className="text-xs font-bold uppercase text-zinc-500 dark:text-zinc-300">
                                                 Channel Type
                                             </FormLabel>
                                             <Select
@@ -172,7 +172,7 @@ export const EditChannelModal = () => {
                                             >
                                                 <FormControl>
                                                     <SelectTrigger
-                                                        className="border-0 bg-zinc-300/50 text-black capitalize outline-none focus:ring-0 focus:ring-offset-0"
+                                                        className="border-0 bg-zinc-300/50 dark:bg-[#1e1f22] text-black dark:text-white capitalize outline-none focus:ring-0 focus:ring-offset-0"
                                                     >
                                                         <SelectValue placeholder="Select a channel type">
                                                             {field.value?.toLowerCase()}
@@ -201,14 +201,14 @@ export const EditChannelModal = () => {
                             />
                         </div>
 
-                        <DialogFooter className="px-6 py-4 bg-gray-100">
+                        <DialogFooter className="px-6 py-4 bg-gray-100 dark:bg-[#2b2d31]">
                             <div className="flex items-center justify-between w-full gap-4">
                                 <Button
                                     type="button"
                                     variant="ghost"
                                     onClick={handleClose}
                                     disabled={isLoading}
-                                    className="hover:bg-zinc-300/50"
+                                    className="hover:bg-zinc-300/50 dark:hover:bg-zinc-700/50"
                                 >
                                     Cancel
                                 </Button>
@@ -216,7 +216,7 @@ export const EditChannelModal = () => {
                                     type="submit"
                                     variant="primary"
                                     disabled={isLoading}
-                                    className="bg-indigo-500 hover:bg-indigo-600 text-white"
+                                    className="bg-indigo-500 hover:bg-indigo-600 text-white dark:bg-indigo-600 dark:hover:bg-indigo-700"
                                 >
                                     Save Channel
                                 </Button>
