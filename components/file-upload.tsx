@@ -34,21 +34,13 @@ export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
   // Handle rendering based on the stored value
   if (!value) {
     return (
-      <div className="w-full h-full flex items-center justify-center">
-        <UploadDropzone
-          endpoint={endpoint}
-          onClientUploadComplete={handleUploadComplete}
-          onUploadError={(error: Error) => {
-            console.error("Upload error:", error);
-          }}
-          appearance={{
-            button: "bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:from-indigo-600 hover:to-purple-700 transition-all duration-300",
-            container: "w-full border-2 border-dashed border-indigo-400/30 rounded-lg bg-indigo-500/5 hover:bg-indigo-500/10 transition-all duration-300 py-4 dark:border-indigo-400/30",
-            label: "text-indigo-500 hover:text-indigo-400 dark:text-indigo-300 transition-colors",
-            allowedContent: "text-zinc-500 dark:text-zinc-400",
-          }}
-        />
-      </div>
+      <UploadDropzone
+        endpoint={endpoint}
+        onClientUploadComplete={handleUploadComplete}
+        onUploadError={(error: Error) => {
+          console.error("Upload error:", error);
+        }}
+      />
     );
   }
 
@@ -81,19 +73,16 @@ export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
 
   // If not a PDF, assume it's an image
   return (
-    <div className="relative h-20 w-20 group">
-      <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-600 blur-sm opacity-50 group-hover:opacity-75 transition-opacity" />
-      <div className="relative h-20 w-20 rounded-full overflow-hidden border-2 border-white/20">
-        <Image
-          fill
-          src={value}
-          alt="Upload"
-          className="rounded-full object-cover"
-        />
-      </div>
+    <div className="relative h-20 w-20">
+      <Image
+        fill
+        src={value}
+        alt="Upload"
+        className="rounded-full object-cover"
+      />
       <button
         onClick={() => onChange("")}
-        className="bg-rose-500 text-white p-1 rounded-full absolute top-0 right-0 shadow-md hover:bg-rose-600 transition-all hover:scale-110"
+        className="bg-rose-500 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm hover:bg-rose-600 transition-colors"
         type="button"
       >
         <X className="h-4 w-4" />

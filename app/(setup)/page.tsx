@@ -1,7 +1,6 @@
 import { initialProfile } from "@/lib/initial-profile";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
-import { InitialModel } from "@/components/models/initial-model";
 
 const SetupPage = async () => {
     const profile = await initialProfile();
@@ -25,7 +24,10 @@ const SetupPage = async () => {
         return redirect(`/servers/${server.id}`);
     }
 
-    return <InitialModel />;
+    // If somehow no server exists, redirect to home
+    // This shouldn't happen since initialProfile creates a server
+    return redirect('/');
 };
 
 export default SetupPage;
+

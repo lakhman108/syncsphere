@@ -1,6 +1,9 @@
 import { RedirectToSignIn } from '@clerk/nextjs';
 import { currentUser } from '@clerk/nextjs/server'
 import { db } from "@/lib/db";
+import { generateAvatar } from "@/lib/generate-avatar";
+import { v4 as uuidv4 } from "uuid";
+import { MemberRole } from "@prisma/client";
 
 export const initialProfile = async () => {
     try {
@@ -20,12 +23,29 @@ export const initialProfile = async () => {
             return profile;
         }
 
+        const userName = `${user.firstName} ${user.lastName}`;
         const newProfile = await db.profile.create({
             data: {
                 userId: user.id,
-                name: `${user.firstName} ${user.lastName}`,
+                name: userName,
                 imageUrl: user.imageUrl,
                 email: user.emailAddresses[0].emailAddress
+            }
+        });
+
+        // Auto-create a default server for the new user
+        await db.server.create({
+            data: {
+                profileId: newProfile.id,
+                name: `${userName}'s Server`,
+                imageUrl: generateAvatar(userName),
+                inviteCode: uuidv4(),
+                channels: {
+                    create: [{ name: "general", profileId: newProfile.id }]
+                },
+                members: {
+                    create: [{ profileId: newProfile.id, role: MemberRole.ADMIN }]
+                }
             }
         });
 
@@ -35,3 +55,4 @@ export const initialProfile = async () => {
         throw error;
     }
 }
+
