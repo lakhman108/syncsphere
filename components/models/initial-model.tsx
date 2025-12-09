@@ -38,7 +38,7 @@ const formSchema = z.object({
   }),
 });
 
-export const InitialModel = () => {
+export const InitialModal = () => {
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
 
@@ -52,33 +52,32 @@ export const InitialModel = () => {
       name: "",
       imageUrl: "",
     }
-  });
-
+  })
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("api/servers", values);
+      await axios.post("/api/servers", values);
       form.reset();
       router.refresh();
       window.location.reload();
     } catch (error) {
       console.log(error);
     }
-  };
+  }
 
   if (!isMounted) {
     return null;
   }
 
   return (
-    <Dialog open={true}>
-      <DialogContent className="bg-white dark:bg-[#313338] text-black dark:text-white p-0 overflow-hidden">
+    <Dialog open>
+      <DialogContent className="fixed z-50 left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] bg-gradient-to-br from-indigo-900/95 via-purple-900/95 to-zinc-900/95 backdrop-blur-xl border border-white/10 text-white p-0 overflow-hidden shadow-2xl rounded-3xl max-w-md w-full">
         <DialogHeader className="pt-8 px-6">
-          <DialogTitle className="text-2xl text-center font-bold">
+          <DialogTitle className="text-3xl text-center font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 to-purple-200">
             Customize your server
           </DialogTitle>
-          <DialogDescription className="text-center text-zinc-500 dark:text-zinc-400">
+          <DialogDescription className="text-center text-zinc-300 mt-2">
             Give your server a personality with a name and an image. You can always change it later.
           </DialogDescription>
         </DialogHeader>
@@ -103,38 +102,36 @@ export const InitialModel = () => {
                   )}
                 />
               </div>
-
               <div>
                 <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-zinc-300">
+                      <FormLabel className="uppercase text-xs font-bold text-indigo-200/70 tracking-wider">
                         Server name
                       </FormLabel>
                       <FormControl>
                         <Input
                           disabled={isLoading}
-                          className="bg-zinc-300/50 dark:bg-[#1e1f22] border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0"
+                          className="bg-black/20 border-0 focus-visible:ring-2 focus-visible:ring-indigo-500/50 text-white placeholder-zinc-400/50 rounded-xl h-12 transition-all focus:bg-black/30"
                           placeholder="Enter Server Name"
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-rose-400" />
                     </FormItem>
                   )}
                 />
               </div>
-
             </div>
-            <DialogFooter className="bg-gray-100 dark:bg-[#2b2d31] px-6 py-4">
+            <DialogFooter className="bg-black/20 px-6 py-4">
               <Button
                 variant="primary"
                 disabled={isLoading}
-                className="bg-indigo-500 hover:bg-indigo-600 text-white dark:bg-indigo-600 dark:hover:bg-indigo-700"
+                className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-indigo-500/25 h-11 rounded-xl"
               >
-                Create
+                Create Server
               </Button>
             </DialogFooter>
           </form>
