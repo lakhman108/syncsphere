@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useState, useEffect, useContext, useMemo } from "react";
 import { io as ClientIO, Socket } from "socket.io-client";
 
 type SocketContextType = {
@@ -27,6 +27,11 @@ export const SocketProvider = ({
         const socketInstance = ClientIO(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000", {
             path: "/api/socket/io",
             addTrailingSlash: false,
+            reconnection: true,
+            reconnectionDelay: 1000,
+            reconnectionDelayMax: 5000,
+            reconnectionAttempts: 5,
+            timeout: 20000,
         });
 
         socketInstance.on("connect", () => {
@@ -39,14 +44,33 @@ export const SocketProvider = ({
             console.log("Disconnected from socket");
         });
 
+        socketInstance.on("reconnect_attempt", (attemptNumber) => {
+            console.log(`Reconnection attempt ${attemptNumber}`);
+        });
+
+        socketInstance.on("reconnect_failed", () => {
+            console.error("Failed to reconnect to socket after maximum attempts");
+        });
+
+        socketInstance.on("connect_error", (error) => {
+            console.error("Socket connection error:", error.message);
+        });
+
         setSocket(socketInstance);
+
         return () => {
             socketInstance.disconnect();
         }
     }, []);
 
+    // Memoize the context value to prevent unnecessary re-renders
+    const contextValue = useMemo(() => ({
+        socket,
+        isConnected
+    }), [socket, isConnected]);
+
     return (
-        <SocketContext.Provider value={{ socket, isConnected }}>
+        <SocketContext.Provider value={contextValue}>
             {children}
         </SocketContext.Provider>
     );

@@ -22,9 +22,9 @@ const formSchema = z.object({
 });
 
 export const ChatInput = (
-{apiUrl, query, name, type}:ChatInputProps
+  { apiUrl, query, name, type }: ChatInputProps
 ) => {
-  const {openModal} = useModal();
+  const { openModal } = useModal();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -38,17 +38,16 @@ export const ChatInput = (
 
   const onSubmit = async (value: z.infer<typeof formSchema>) => {
     try {
-        const url=qs.stringifyUrl({
-            url:apiUrl,
-            query,
-        })
-        console.log(url);
-        await axios.post(url, value);
-        form.reset();
-        router.refresh()
+      const url = qs.stringifyUrl({
+        url: apiUrl,
+        query,
+      })
+
+      await axios.post(url, value);
+      form.reset();
+      router.refresh()
     } catch (error) {
       console.error(error);
-
     }
   };
 
@@ -64,7 +63,7 @@ export const ChatInput = (
                 <div className="relative p-4 pb-6">
                   <button
                     type="button"
-                    onClick={() => openModal("messageFile",{apiUrl,query})}
+                    onClick={() => openModal("messageFile", { apiUrl, query })}
                     className="absolute top-7 left-8 h-[24px] w-[24px] bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-1 flex items-center justify-center"
                   >
                     <Plus className="text-white dark:text-[#31338]" />
@@ -73,15 +72,15 @@ export const ChatInput = (
                   <Input
                     disabled={isLoading}
                     className="px-14 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
-                    placeholder={`Message ${ type==="conversation" ? name : "#" + name }`}
+                    placeholder={`Message ${type === "conversation" ? name : "#" + name}`}
                     {...field}
                   />
 
                   <div className="absolute top-7 right-8">
-                  <EmojiPicker
-                    onChange={(emoji: string) => field.onChange(`${field.value}${emoji}`)}
-                  />
-</div>
+                    <EmojiPicker
+                      onChange={(emoji: string) => field.onChange(`${field.value}${emoji}`)}
+                    />
+                  </div>
                 </div>
               </FormControl>
             </FormItem>

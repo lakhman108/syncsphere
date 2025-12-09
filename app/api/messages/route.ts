@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { Message } from "@prisma/client";
 import { db } from "@/lib/db";
 
-const MESSAGES_BATCH = 10
+const MESSAGES_BATCH = 50;
 
 export async function GET(
   req: Request
@@ -20,61 +20,61 @@ export async function GET(
     }
 
     if (!channelId) {
-        return new NextResponse("Channel ID missing", { status: 400 });
-      }
-      
-      let messages: Message[] = [];
-      
-      if (cursor) {
-        messages = await db.message.findMany({
-          take: MESSAGES_BATCH,
-          skip: 1,
-          cursor: {
-            id: cursor,
-          },
-          where: {
-            channelId: channelId
-          },
-          include: {
-                member: {
-                  include: {
-                    profile: true,
-                  },
-                },
-              },
-              orderBy: {
-                createdAt: "desc",
-              },
-        });
-} else {
-        messages = await db.message.findMany({
-          take: MESSAGES_BATCH,
-          where: {
-            channelId,
-          },
-          include: {
-            member: {
-              include: {
-                profile: true,
-              },
+      return new NextResponse("Channel ID missing", { status: 400 });
+    }
+
+    let messages: Message[] = [];
+
+    if (cursor) {
+      messages = await db.message.findMany({
+        take: MESSAGES_BATCH,
+        skip: 1,
+        cursor: {
+          id: cursor,
+        },
+        where: {
+          channelId: channelId
+        },
+        include: {
+          member: {
+            include: {
+              profile: true,
             },
           },
-          orderBy: {
-            createdAt: "desc",
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    } else {
+      messages = await db.message.findMany({
+        take: MESSAGES_BATCH,
+        where: {
+          channelId,
+        },
+        include: {
+          member: {
+            include: {
+              profile: true,
+            },
           },
-        });
-      }
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    }
 
-      let nextCursor = null;
+    let nextCursor = null;
 
-if (messages.length === MESSAGES_BATCH) {
-  nextCursor = messages[MESSAGES_BATCH - 1].id;
-}
+    if (messages.length === MESSAGES_BATCH) {
+      nextCursor = messages[MESSAGES_BATCH - 1].id;
+    }
 
-return NextResponse.json({
-  items: messages,
-  nextCursor,
-});
+    return NextResponse.json({
+      items: messages,
+      nextCursor,
+    });
 
   } catch (error) {
     console.log("[MESSAGES_GET]", error);
