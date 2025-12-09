@@ -16,7 +16,7 @@ interface ServerHeaderProps {
 export const ServerHeader = ({server,role}:ServerHeaderProps) => {
 const isAdmin=role===MemberRole.ADMIN;
 const isModerator=isAdmin || role===MemberRole.MODERATOR;
-const {openModal,closeModal}=useModal();
+const {openModal}=useModal();
 // console.log(isModerator);
     return(
        <DropdownMenu>

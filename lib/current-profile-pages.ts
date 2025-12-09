@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { auth, getAuth } from "@clerk/nextjs/server";
+import { getAuth } from "@clerk/nextjs/server";
 import { NextApiRequest } from "next";
 
 

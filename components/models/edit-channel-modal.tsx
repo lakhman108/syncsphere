@@ -5,7 +5,7 @@ import * as z from "zod";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChannelType } from "@prisma/client";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
 import qs from "query-string";
 import {
@@ -35,7 +35,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 
 const formSchema = z.object({
     name: z.string()
@@ -53,8 +53,6 @@ type FormValues = z.infer<typeof formSchema>;
 export const EditChannelModal = () => {
     const { isOpen, closeModal, type, data } = useModal();
     const router = useRouter();
-    // const { serverId } = data;
-    const params=useParams();
     const isModalOpen = isOpen && type === "editChannel";
     const {channel,server} = data;
     const form = useForm<FormValues>({
@@ -91,7 +89,7 @@ export const EditChannelModal = () => {
             console.log("Current channel type:", channel?.type);
             console.log("Selected type:", values.type);
 
-            const serverId = params?.serverId;
+
 
             const url = qs.stringifyUrl({
                 url: `/api/channels/${channel?.id}`,

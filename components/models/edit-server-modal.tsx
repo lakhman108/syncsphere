@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import axios from "axios";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 
 import {
@@ -46,7 +47,8 @@ export const EditServerModal = () => {
     const router = useRouter();
     const {server} = data;
     const isModalOpen = isOpen && type === "editServer";
-    const form = useForm({
+    const form = useForm<z.infer<typeof formSchema>>({
+            resolver: zodResolver(formSchema),
             defaultValues: {
                     name: "",
                     imageUrl: "",

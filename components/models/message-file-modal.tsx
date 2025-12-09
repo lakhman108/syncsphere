@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import * as z from "zod";
 import axios from "axios";
-import qs from "query-string"
+import qs from "query-string";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
   Dialog,
@@ -38,7 +39,8 @@ export const MessageFileModal = () => {
   const {apiUrl,query} = data;
   const isModalOpen = isOpen && type==="messageFile";
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       fileUrl: "",
     }

@@ -18,7 +18,7 @@ import qs from "query-string"
 
 export const DeleteChannelModal = () => {
 
-    const {openModal,isOpen, closeModal, type,data} = useModal();
+    const {isOpen, closeModal, type,data} = useModal();
     const router=useRouter();
     const {server,channel} =data;
     const isModalOpen = isOpen && type === "deleteChannel";

@@ -12,7 +12,7 @@ interface FileUploadProps {
 
 export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
   // Handle the upload completion with file type awareness
-  const handleUploadComplete = (res: any) => {
+  const handleUploadComplete = (res: Array<{url: string; name?: string}>) => {
     if (!res || res.length === 0) return;
     
     const file = res[0];

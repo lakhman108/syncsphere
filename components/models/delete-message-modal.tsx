@@ -12,14 +12,12 @@ import {
         DialogHeader,
         DialogTitle
 } from "@/components/ui/dialog";
-import { useRouter } from "next/navigation";
 import qs from "query-string"
 
 
 export const DeleteMessageModal = () => {
 
-    const {openModal,isOpen, closeModal, type,data} = useModal();
-    const router=useRouter();
+    const {isOpen, closeModal, type,data} = useModal();
     const {apiUrl,query} =data;
     const isModalOpen = isOpen && type === "deleteMessage";
 

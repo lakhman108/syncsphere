@@ -17,7 +17,7 @@ import { useRouter } from "next/navigation";
 
 export const DeleteServerModal = () => {
 
-    const {openModal,isOpen, closeModal, type,data} = useModal();
+    const {isOpen, closeModal, type,data} = useModal();
     const router=useRouter();
 
     const {server} =data;

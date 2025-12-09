@@ -1,13 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-    webpack: (config) => {
-        config.externals.push({
-          "utf-8-validate": "commonjs utf-8-validate",
-          bufferutil: "commonjs bufferutil",
-        });
-        return config;
-      },
+  // Explicitly configure what to watch
+  // onDemandEntries: {
+  //   maxInactiveAge: 25 * 1000,
+  //   pagesBufferLength: 2,
+  // },
   images: {
     remotePatterns: [
       {
@@ -20,11 +18,14 @@ const nextConfig: NextConfig = {
       }
     ]
   },
-  experimental: {
-    optimizeCss: true,
-    // This helps prevent style-related hydration issues
-    scrollRestoration: true
-  }
+  // Add webpack config to handle socket.io
+  // webpack: (config) => {
+  //   config.externals.push({
+  //     "utf-8-validate": "commonjs utf-8-validate",
+  //     "bufferutil": "commonjs bufferutil",
+  //   });
+  //   return config;
+  // },
 };
 
 export default nextConfig;
